@@ -19,7 +19,6 @@ then
   echo 'done'
 elif [[ $input = '2' ]]
 then
-  echo "You chose option $input"
   echo 'Turning HTTP proxy OFF...'
   for env_var in http_proxy HTTP_PROXY https_proxy HTTPS_PROXY
     do
