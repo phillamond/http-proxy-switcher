@@ -8,27 +8,36 @@ read input
 echo "You chose option $input"
 
 proxy='http://www-cache.reith.bbc.co.uk:80'
+env_vars=(http_proxy HTTP_PROXY https_proxy HTTPS_PROXY)
 
 if [[ $input = '1' ]]
 then
   echo 'Turning HTTP proxy ON...'
-  for env_var in http_proxy HTTP_PROXY https_proxy HTTPS_PROXY
-    do
-      export $env_var=$proxy
-    done 
+  switch 'on'
   echo 'done'
 elif [[ $input = '2' ]]
 then
   echo 'Turning HTTP proxy OFF...'
-  for env_var in http_proxy HTTP_PROXY https_proxy HTTPS_PROXY
-    do
-      unset $env_var
-    done 
+  switch 'off'
   echo 'done'
 else
   echo 'Warning: invalid option'
 fi
 
 echo 'Proxy report:'
-env | grep -i http | grep -vi 'maven'
+env | grep -i "http[s|_]" | grep -vi 'maven'
+echo 'Bye'
 echo
+
+switch() {
+  for env_var in ${env_vars[@]};
+    do
+      if [[ $1 = 'on' ]]
+      then
+        export $env_var=$proxy
+      elif [[ $1 = 'off' ]]
+      then
+        unset $env_var
+      fi
+  done 
+}
