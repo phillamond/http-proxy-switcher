@@ -7,4 +7,4 @@ For BBC shell environment.
 
 Usage:
 
-  source proxy_switch.sh
+`source proxy_switch.sh`
