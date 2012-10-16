@@ -10,6 +10,19 @@ echo "You chose option $input"
 proxy='http://www-cache.reith.bbc.co.uk:80'
 env_vars=(http_proxy HTTP_PROXY https_proxy HTTPS_PROXY)
 
+switch() {
+  for env_var in ${env_vars[@]};
+    do
+      if [[ $1 = 'on' ]]
+      then
+        export $env_var=$proxy
+      elif [[ $1 = 'off' ]]
+      then
+        unset $env_var
+      fi
+  done 
+}
+
 if [[ $input = '1' ]]
 then
   echo 'Turning HTTP proxy ON...'
@@ -29,15 +42,3 @@ env | grep -i "http[s|_]" | grep -vi 'maven'
 echo 'Bye'
 echo
 
-switch() {
-  for env_var in ${env_vars[@]};
-    do
-      if [[ $1 = 'on' ]]
-      then
-        export $env_var=$proxy
-      elif [[ $1 = 'off' ]]
-      then
-        unset $env_var
-      fi
-  done 
-}
