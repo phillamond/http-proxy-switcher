@@ -27,11 +27,15 @@ if [[ $input = '1' ]]
 then
   echo 'Turning HTTP proxy ON...'
   switch 'on'
+  echo 'Swapping ~/.subversion/servers'
+  cp ~/.subversion/servers_on_reith ~/.subversion/servers
   echo 'done'
 elif [[ $input = '2' ]]
 then
   echo 'Turning HTTP proxy OFF...'
   switch 'off'
+  echo 'Swapping ~/.subversion/servers'
+  cp ~/.subversion/servers_off_reith ~/.subversion/servers
   echo 'done'
 else
   echo 'Warning: invalid option'
