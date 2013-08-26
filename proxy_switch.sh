@@ -27,22 +27,27 @@ if [[ $input = '1' ]]
 then
   echo 'Turning HTTP proxy ON...'
   switch 'on'
-  echo 'Swapping ~/.subversion/servers'
+  echo 'Swapping ~/.subversion/servers...'
   cp ~/.subversion/servers_on_reith ~/.subversion/servers
-  echo 'done'
+  echo 'Adding proxy to git config...'
+  git config --global http.proxy http://www-cache.reith.bbc.co.uk:80
+  echo 'Done'
 elif [[ $input = '2' ]]
 then
   echo 'Turning HTTP proxy OFF...'
   switch 'off'
   echo 'Swapping ~/.subversion/servers'
   cp ~/.subversion/servers_off_reith ~/.subversion/servers
-  echo 'done'
+  echo 'Removing proxy from git config...'
+  git config --global --remove-section http
+  echo 'Done'
 else
   echo 'Warning: invalid option'
 fi
 
 echo 'Proxy report:'
 env | grep -i "http[s|_]" | grep -vi 'maven'
-echo 'Bye'
+cat ~/.gitconfig | grep http
+echo 'Toodlepip!'
 echo
 
